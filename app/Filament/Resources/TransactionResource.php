@@ -28,7 +28,7 @@ class TransactionResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('category_id')
-                    ->relationship( 'category', 'name')
+                    ->relationship('category', 'name')
                     ->label('category')
                     ->required(),
                 Forms\Components\DatePicker::make('date')
@@ -41,7 +41,6 @@ class TransactionResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
                     ->image()
-                    ->required(),
             ]);
     }
 
@@ -49,24 +48,33 @@ class TransactionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+
+                Tables\Columns\ImageColumn::make('category.image')
+                    ->label('Kategori'),
                 Tables\Columns\TextColumn::make('category.name')
-                    ->numeric()
-                    ->sortable(),
+                    ->description(fn(Transaction $record) => $record->name)
+                    ->label('Nama Kategori'),
                 IconColumn::make('category.is_expense')
-                    ->label('Type Transaction')
+                    ->label('Tipe Transaksi')
+                    ->alignCenter()
                     ->boolean()
-                    ->alignCenter(),
+                    ->trueIcon('heroicon-o-arrow-up-circle')
+                    ->trueColor('danger')
+                    ->falseIcon('heroicon-o-arrow-down-circle')
+                    ->falseColor('success'),
                 Tables\Columns\TextColumn::make('date')
                     ->date()
+                    ->label('Tanggal')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('amount')
-                    ->formatStateUsing(fn(Transaction $record): string => 'Rp' . number_format($record->amount, 0, '.', '.'))
+                    ->money('IDR', locale: 'id')
+                    ->label('Uang')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('note')
+                    ->label('Description')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Gambar'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -38,11 +39,21 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Gambar'),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable(),
+                // TextColumn::make('is_expense')
+                //     ->label('Tipe Transaktsi')
+                //     ->boolean(),
                 Tables\Columns\IconColumn::make('is_expense')
-                    ->boolean(),
+                    ->label("Detail")
+                    ->boolean()
+                    ->trueIcon('heroicon-o-arrow-up-circle')
+                    ->trueColor('danger')
+                    ->falseIcon('heroicon-o-arrow-down-circle')
+                    ->falseColor('success'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
