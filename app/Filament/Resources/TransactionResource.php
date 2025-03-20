@@ -31,7 +31,7 @@ class TransactionResource extends Resource
                     ->relationship('category', 'name')
                     ->label('category')
                     ->required(),
-                Forms\Components\DatePicker::make('date')
+                Forms\Components\DatePicker::make('date_transaction')
                     ->required(),
                 Forms\Components\TextInput::make('amount')
                     ->required()
@@ -62,7 +62,7 @@ class TransactionResource extends Resource
                     ->trueColor('danger')
                     ->falseIcon('heroicon-o-arrow-down-circle')
                     ->falseColor('success'),
-                Tables\Columns\TextColumn::make('date')
+                Tables\Columns\TextColumn::make('date_transaction')
                     ->date()
                     ->label('Tanggal')
                     ->sortable(),

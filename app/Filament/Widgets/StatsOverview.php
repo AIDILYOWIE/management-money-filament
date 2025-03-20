@@ -17,7 +17,7 @@ class StatsOverview extends BaseWidget
             Stat::make('Total Pemasukan', $pemasukan)
                 ,
             Stat::make('Total Pengeluaran', $pengeluaran),
-            Stat::make('Selisih', '192.1k'),
+            Stat::make('Selisih', $pemasukan - $pengeluaran),
         ];
     }
 }
